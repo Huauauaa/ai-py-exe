@@ -50,6 +50,8 @@ git push origin v1.0.0
 - Linux: `time-tool-Linux-x64`
 - macOS Intel: `time-tool-macOS-x64`
 - macOS Apple Silicon (M1/M2/M3): `time-tool-macOS-arm64`
+- macOS Intel DMG: `time-tool-macOS-x64.dmg`
+- macOS Apple Silicon DMG: `time-tool-macOS-arm64.dmg`
 
 ### macOS 使用说明
 
@@ -61,6 +63,11 @@ uname -m
 
 - 输出 `arm64`：下载并运行 `time-tool-macOS-arm64`
 - 输出 `x86_64`：下载并运行 `time-tool-macOS-x64`
+
+也可以直接下载 DMG：
+
+- `arm64`：`time-tool-macOS-arm64.dmg`
+- `x86_64`：`time-tool-macOS-x64.dmg`
 
 运行命令：
 

@@ -17,15 +17,19 @@ jobs:
           - os: windows-latest
             artifact_path: dist/time-tool.exe
             artifact_name: time-tool-windows.exe
+            dmg_name: ""
           - os: ubuntu-latest
             artifact_path: dist/time-tool
             artifact_name: time-tool-Linux-x64
+            dmg_name: ""
           - os: macos-13
             artifact_path: dist/time-tool
             artifact_name: time-tool-macOS-x64
+            dmg_name: time-tool-macOS-x64.dmg
           - os: macos-14
             artifact_path: dist/time-tool
             artifact_name: time-tool-macOS-arm64
+            dmg_name: time-tool-macOS-arm64.dmg
 
     runs-on: ${{ matrix.os }}
 
@@ -59,6 +63,20 @@ jobs:
         run: |
           mkdir -p release
           cp ${{ matrix.artifact_path }} release/${{ matrix.artifact_name }}
+
+      - name: Build DMG package (macOS)
+        if: runner.os == 'macOS'
+        run: |
+          rm -rf dmg-root
+          mkdir -p dmg-root
+          cp ${{ matrix.artifact_path }} dmg-root/time-tool
+          chmod +x dmg-root/time-tool
+          hdiutil create \
+            -volname "time-tool" \
+            -srcfolder dmg-root \
+            -ov \
+            -format UDZO \
+            release/${{ matrix.dmg_name }}
 
       - name: Upload release assets
         uses: softprops/action-gh-release@v2
