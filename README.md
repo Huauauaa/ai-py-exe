@@ -44,8 +44,34 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-工作流会在 `windows-latest`、`ubuntu-latest`、`macos-latest` 上分别构建，并将产物上传到同一个 Release：
+工作流会在 Windows、Linux、macOS（Intel/Apple Silicon）上分别构建，并将产物上传到同一个 Release：
 
 - Windows: `time-tool-windows.exe`
 - Linux: `time-tool-Linux-x64`
-- macOS: `time-tool-macOS-x64`
+- macOS Intel: `time-tool-macOS-x64`
+- macOS Apple Silicon (M1/M2/M3): `time-tool-macOS-arm64`
+
+### macOS 使用说明
+
+先确认芯片架构：
+
+```bash
+uname -m
+```
+
+- 输出 `arm64`：下载并运行 `time-tool-macOS-arm64`
+- 输出 `x86_64`：下载并运行 `time-tool-macOS-x64`
+
+运行命令：
+
+```bash
+chmod +x time-tool-macOS-arm64
+./time-tool-macOS-arm64
+```
+
+如果你只有 `x64` 包且在 Apple Silicon 上临时运行，可先安装 Rosetta 再执行：
+
+```bash
+softwareupdate --install-rosetta --agree-to-license
+arch -x86_64 ./time-tool-macOS-x64
+```
