@@ -44,8 +44,8 @@ git tag v1.0.0
 git push origin v1.0.0
 ```
 
-工作流会：
+工作流会在 `windows-latest`、`ubuntu-latest`、`macos-latest` 上分别构建，并将产物上传到同一个 Release：
 
-1. 在 `windows-latest` 上构建 `time-tool.exe`
-2. 在 `ubuntu-latest` 上创建 GitHub Release
-3. 将 `time-tool.exe` 作为附件上传到该 Release
+- Windows: `time-tool-windows.exe`
+- Linux: `time-tool-Linux-x64`
+- macOS: `time-tool-macOS-x64`
