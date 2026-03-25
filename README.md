@@ -1,24 +1,24 @@
 # ai-py-exe
 
-一个使用 Python 编写的命令行工具：显示当前本地时间，并支持打包为 Windows `exe`，以及通过 GitHub Actions 自动发布 Release。
+一个使用 Python + PyQt6 编写的桌面工具：图形界面实时显示当前本地时间，并支持打包为 Windows `exe`，以及通过 GitHub Actions 自动发布 Release。
 
 ## 功能
 
-- 显示当前本地时间（含时区）
+- 图形界面显示当前本地时间（含时区）
+- 每秒自动刷新时间
 - 可用 PyInstaller 打包为独立可执行文件（`exe`）
 - 推送 `v*` 标签后自动创建 GitHub Release 并上传构建产物
 
 ## 本地运行
 
 ```bash
+python3 -m pip install PyQt6
 python3 time_tool.py
 ```
 
-示例输出：
+运行后会弹出窗口，居中显示例如：
 
-```text
-2026-03-24 12:34:56 CST
-```
+`2026-03-24 12:34:56 CST`
 
 ## 本地打包 exe（在 Windows 上）
 

@@ -1,16 +1,44 @@
 #!/usr/bin/env python3
-"""Simple CLI tool to print the current local time."""
+"""PyQt desktop app to display current local time."""
 
 from datetime import datetime
 import sys
 
+from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtWidgets import QApplication, QLabel, QVBoxLayout, QWidget
+
+
+class TimeWindow(QWidget):
+    """Small window that refreshes and displays local time."""
+
+    def __init__(self) -> None:
+        super().__init__()
+        self.setWindowTitle("Time Tool")
+        self.resize(420, 180)
+
+        self.time_label = QLabel()
+        self.time_label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        self.time_label.setStyleSheet("font-size: 24px; font-family: monospace;")
+
+        layout = QVBoxLayout()
+        layout.addWidget(self.time_label)
+        self.setLayout(layout)
+
+        self.timer = QTimer(self)
+        self.timer.timeout.connect(self.update_time)
+        self.timer.start(1000)
+        self.update_time()
+
+    def update_time(self) -> None:
+        now = datetime.now().astimezone()
+        self.time_label.setText(now.strftime("%Y-%m-%d %H:%M:%S %Z"))
+
 
 def main() -> int:
-    now = datetime.now().astimezone()
-    # Flush explicitly so frozen binaries and piped execution don't appear to hang.
-    sys.stdout.write(f"{now.strftime('%Y-%m-%d %H:%M:%S %Z')}\n")
-    sys.stdout.flush()
-    return 0
+    app = QApplication(sys.argv)
+    window = TimeWindow()
+    window.show()
+    return app.exec()
 
 
 if __name__ == "__main__":
